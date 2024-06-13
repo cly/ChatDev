@@ -16,6 +16,7 @@ from typing import Any, Dict
 
 import openai
 import tiktoken
+import logging
 
 from camel.typing import ModelType
 from chatdev.statistics import prompt_cost
@@ -70,6 +71,11 @@ class OpenAIModel(ModelBackend):
         gap_between_send_receive = 15 * len(kwargs["messages"])
         num_prompt_tokens += gap_between_send_receive
 
+        print("11111112\n")
+        print(kwargs["messages"])
+        logging.info("11111112\n")
+        logging.info(kwargs["messages"])
+
         if openai_new_api:
             # Experimental, add base_url
             if BASE_URL:
@@ -98,6 +104,11 @@ class OpenAIModel(ModelBackend):
 
             response = client.chat.completions.create(*args, **kwargs, model=self.model_type.value,
                                                       **self.model_config_dict)
+                                                    
+            print("111111113\n")
+            print(response)
+            logging.info("111111113\n")
+            logging.info(response)
 
             cost = prompt_cost(
                 self.model_type.value,
